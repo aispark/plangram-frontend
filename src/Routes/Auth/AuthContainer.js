@@ -38,6 +38,7 @@ export default () => {
   const [localLogInMutation] = useMutation(LOCAL_LOG_IN);
 
   const onSubmit = async e => {
+    console.log("action", action);
     if (action === "logIn") {
       if (email.value !== "") {
         try {
