@@ -1,9 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import { gql } from "apollo-boost";
+import withRouter from "react-router-dom/withRouter";
 import { useQuery } from "react-apollo-hooks";
-import { withRouter } from "react-router-dom";
-import Loader from "../Components/Loader";
+import ProfilePresenter from "./ProfilePresenter";
 
 const GET_USER = gql`
   query seeUser($username: String!) {
@@ -15,8 +14,9 @@ const GET_USER = gql`
       isFollowing
       isSelf
       bio
-      followersCount
       followingCount
+      followersCount
+      postsCount
       posts {
         id
         files {
@@ -25,13 +25,11 @@ const GET_USER = gql`
         likeCount
         commentCount
       }
-      postsCount
     }
   }
 `;
 
 export default withRouter(({ match: { params: { username } } }) => {
-  console.log("username", username);
-  const { data, loading } = useQuery(GET_USER, { skip: true });
-  if (loading) return <Loader></Loader>;
+  const { data, loading } = useQuery(GET_USER, { variables: { username } });
+  return <ProfilePresenter loading={loading} data={data} />;
 });
