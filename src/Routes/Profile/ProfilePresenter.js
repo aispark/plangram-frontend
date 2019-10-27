@@ -57,6 +57,7 @@ const Posts = styled.div`
   grid-template-columns: repeat(4, 200px);
   grid-template-rows: 200px;
   grid-auto-rows: 200px;
+  grid-gap: 40px;
 `;
 
 export default ({ loading, data }) => {
